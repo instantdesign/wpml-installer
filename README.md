@@ -1,6 +1,6 @@
 # WPML Installer for composer
 A composer plugin to make installing [wpml.org](https://wpml.org) plugins with composer easy.
-Your subscription info will be read from environment variables, will only be transmitted to WPML and will not be displayed in `composer.lock`.
+Your subscription info will be read from environment variables or from a `.env` file, will only be transmitted to WPML and will not be displayed in `composer.lock`.
 
 This composer plugin does not provide any WPML code. The WPML plugins will be downloaded directly from wpml.org
 
@@ -37,14 +37,18 @@ This repository provides the latest versions of the WPML plugins. If you want a 
 ```
 When you request an older version you must be sure than WPML still provides a download otherwise this won't work
 
-### 2. Save your WPML user id and subscription key to environment variables
+### 2. Save your WPML user id and subscription key to environment variables or to a `.env` file
 
-We do not provide any WPML code, the plugins are downloaded directly from WPML servers. Because of this we need your WPML subscription info to be able to download them. Your subscription info is stored in environment variables, is only transmitted to WPML and will not show up in `composer.lock`.
+We do not provide any WPML code, the plugins are downloaded directly from WPML servers. Because of this we need your WPML subscription info to be able to download them. Your subscription info is stored in environment variables or a `.env` file, is only transmitted to WPML and will not show up in `composer.lock`.
 
 You can get your user id and subscription key from a WPML provided download link, that you can get from your [WPML dashboard](https://wpml.org/account/downloads/). It will look like this:
 `https://wpml.org/?download=6088&user_id=XXXXX&subscription_key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&version=4.5.14`
 
-You must save the `user_id` parameter in the `WPML_USER_ID` environment variable and the `subscription_key` parameter in the `WPML_SUBSCRIPTION_KEY` environment variable.
+#### Using environment variables
+Save the `user_id` parameter in the `WPML_USER_ID` environment variable and the `subscription_key` parameter in the `WPML_SUBSCRIPTION_KEY` environment variable.
+
+#### Using a `.env` file
+Add the `user_id` parameter with the `WPML_USER_ID` key and the `subscription_key` parameter with the `WPML_SUBSCRIPTION_KEY` key to your `.env` file. The `.env` file must be in the same directory as your `composer.json` file for it work.
 
 ### 3. Require a WPML plugin
 

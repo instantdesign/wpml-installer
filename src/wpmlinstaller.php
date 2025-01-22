@@ -3,11 +3,14 @@
 namespace lucguerraz\wpmlinstaller;
 
 use Composer\Composer;
+use Composer\Factory;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 use Composer\Plugin\PluginEvents;
 use Composer\Plugin\PreFileDownloadEvent;
+
+use Dotenv\Dotenv;
 
 use lucguerraz\wpmlinstaller\exceptions\missingkeyexception;
 use lucguerraz\wpmlinstaller\exceptions\faultykeyexception;
@@ -30,6 +33,7 @@ class wpmlinstaller implements PluginInterface, EventSubscriberInterface
      * The function that is called when the plugin is activated
      *
      * Makes composer and io available to this class
+     * It finds the composer baseDir and loads the .env file
      *
      * @access public
      * @param  Composer    $composer The composer object
@@ -39,6 +43,13 @@ class wpmlinstaller implements PluginInterface, EventSubscriberInterface
     {
         $this->composer = $composer;
         $this->io = $io;
+
+        $composerFile = Factory::getComposerFile();
+        $composerFilePath = realpath($composerFile);
+        $baseDir = dirname($composerFilePath);
+
+        $dotenv = Dotenv::createImmutable($baseDir);
+        $dotenv->safeLoad();
     }
 
     public function deactivate(Composer $composer, IOInterface $io)
@@ -141,10 +152,18 @@ class wpmlinstaller implements PluginInterface, EventSubscriberInterface
      */
     private function getParameter(string $key)
     {
-        $value = getenv($key);
-        if (empty($value)) {
-            throw new missingkeyexception($key);
+        if (isset($_ENV[$key])) {
+            $value_dotenv = $_ENV[$key];
+            if (!empty($value_dotenv)) {
+                return $value_dotenv;
+            }
         }
-        return $value;
+
+        $value_sysenv = getenv($key);
+        if (!empty($value_sysenv)) {
+            return $value_sysenv;
+        }
+
+        throw new missingkeyexception($key);
     }
 }
