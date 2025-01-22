@@ -25,11 +25,8 @@
   },
   "autoload": {
     "psr-4": {
-      "lucguerraz\\wpmlinstaller\\": "src"
-    },
-    "files": [
-      "src/exceptions.php"
-    ]
+      "lucguerraz\\wpmlinstaller\\": "src/"
+    }
   },
   "extra": {
     "class": "lucguerraz\\wpmlinstaller\\wpmlinstaller",
