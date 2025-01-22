@@ -29,7 +29,7 @@ This repository provides the latest versions of the WPML plugins. If you want a 
         "url": "https://wpml.org/?download=6088&version=1.0.0"
     },
     "require": {
-        "lucguerraz/wpml-installer": "^0.1",
+        "lucguerraz/wpml-installer": "^1.0",
         "composer/installers": "~1.0"
     }
   }
