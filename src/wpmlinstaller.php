@@ -118,7 +118,7 @@ class wpmlinstaller implements PluginInterface, EventSubscriberInterface
         parse_str($url_parts['query'], $url_query_parts);
 
         $wpml_user_id = trim($this->getParameter('WPML_USER_ID'));
-        if (!is_numeric($wpml_user_id) || strlen($wpml_user_id) !== 5) {
+        if (!is_numeric($wpml_user_id) || strlen($wpml_user_id) !== 6) {
             throw new faultykeyexception('WPML_USER_ID');
         }
 
